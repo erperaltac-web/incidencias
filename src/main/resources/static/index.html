@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soporte UTP - Sistema de Gestión de Incidencias</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Background dynamic elements -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <div class="app-container">
+        <!-- GLOBAL NAVBAR (Hidden during Login) -->
+        <header class="main-header glass-panel" id="mainHeader" style="display: none;">
+            <div class="header-logo">
+                <div class="utp-logo mini">
+                    <div class="utp-logo-square utp-u">U</div>
+                    <div class="utp-logo-square utp-t">T</div>
+                    <div class="utp-logo-square utp-p">P</div>
+                </div>
+                <div class="logo-text">
+                    <h1>Soporte <span>UTP</span></h1>
+                    <span class="sub-logo">Gestión de Incidencias</span>
+                </div>
+            </div>
+
+            <!-- Demo Mode Toggle & Status -->
+            <div class="header-controls">
+                <div class="demo-badge-container">
+                    <span class="demo-indicator-dot" id="demoDot"></span>
+                    <span class="demo-mode-label" id="demoModeLabel">Modo Demo Activo</span>
+                    <label class="switch-container">
+                        <input type="checkbox" id="demoToggle" checked>
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+
+                <!-- Notifications Bell (For TI and Admin) -->
+                <div class="notification-bell-container" id="notifBellContainer" style="display: none;">
+                    <button class="notif-btn" id="notifBtn">
+                        <i class="fa-solid fa-bell"></i>
+                        <span class="notif-count" id="notifCount">0</span>
+                    </button>
+                    <!-- Floating Notifications Menu -->
+                    <div class="notif-dropdown glass-panel" id="notifDropdown">
+                        <div class="notif-header">
+                            <h3>Nuevas Incidencias</h3>
+                            <button class="btn-text-only" id="clearNotifBtn">Limpiar</button>
+                        </div>
+                        <div class="notif-list" id="notifList">
+                            <div class="notif-empty">Sin nuevas notificaciones</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Profile Info -->
+                <div class="user-profile-badge glass-panel" id="userProfileBadge">
+                    <div class="user-avatar" id="userAvatar">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="profileName">Cargando...</span>
+                        <span class="user-role-badge" id="profileRole">TI Support</span>
+                    </div>
+                    <button class="logout-btn" id="logoutBtn" title="Cerrar Sesión">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            
+            <!-- SECTION 1: PREMIUM LOGIN SCREEN -->
+            <section class="login-section" id="loginSection">
+                <div class="login-wrapper">
+                    <div class="login-brand">
+                        <div class="utp-logo">
+                            <div class="utp-logo-square utp-u">U</div>
+                            <div class="utp-logo-square utp-t">T</div>
+                            <div class="utp-logo-square utp-p">P</div>
+                        </div>
+                        <h2>Soporte <span>UTP</span></h2>
+                        <p class="brand-slogan">Plataforma de atención de incidentes, redes e infraestructura de la Universidad Tecnológica del Perú</p>
+                    </div>
+
+                    <div class="login-card glass-panel fade-in">
+                        <div class="login-card-header">
+                            <h3>Iniciar Sesión</h3>
+                            <p>Accede con tus credenciales asignadas</p>
+                        </div>
+
+                        <form id="loginForm" class="login-form">
+                            <div class="input-group">
+                                <label for="username"><i class="fa-solid fa-user-shield"></i> Usuario</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="username" placeholder="Ingresa tu usuario..." required autocomplete="username">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="password"><i class="fa-solid fa-key"></i> Contraseña</label>
+                                <div class="input-wrapper">
+                                    <input type="password" id="password" placeholder="Ingresa tu contraseña..." required autocomplete="current-password">
+                                </div>
+                            </div>
+
+                            <div class="login-alert error-alert" id="loginError" style="display: none;">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                                <span id="loginErrorMessage">Usuario o contraseña incorrectos.</span>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="loginSubmitBtn">
+                                <span>Ingresar</span>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            </button>
+                        </form>
+
+                        <div class="quick-credentials">
+                            <h4>Acceso Rápido de Prueba (Demo)</h4>
+                            <div class="quick-roles-grid">
+                                <button class="btn-quick-role" data-user="docente1" data-pass="docente123" title="Dr. Juan Pérez">
+                                    <i class="fa-solid fa-chalkboard-user"></i>
+                                    <span>Docente</span>
+                                </button>
+                                <button class="btn-quick-role" data-user="tecnico1" data-pass="ti123" title="Ing. Carlos Dávila">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                    <span>TI Soporte</span>
+                                </button>
+                                <button class="btn-quick-role" data-user="admin" data-pass="admin123" title="Administrador">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                    <span>Admin</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: DOCENTE DASHBOARD -->
+            <section class="dashboard-section" id="docenteDashboard" style="display: none;">
+                <div class="dashboard-grid">
+                    <!-- Left: Report form -->
+                    <div class="dashboard-card glass-panel fade-in">
+                        <div class="card-header-icon border-blue">
+                            <i class="fa-solid fa-circle-plus"></i>
+                            <h3>Reportar Nueva Incidencia</h3>
+                        </div>
+
+                        <form id="incidenciaForm" class="standard-form">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="incTitulo"><i class="fa-solid fa-heading"></i> Título de la Incidencia</label>
+                                    <input type="text" id="incTitulo" placeholder="Ej. Proyector no enciende en aula 302..." required>
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div class="input-group">
+                                    <label for="incCategoria"><i class="fa-solid fa-tags"></i> Categoría</label>
+                                    <select id="incCategoria" required>
+                                        <option value="" disabled selected>Selecciona categoría...</option>
+                                        <option value="HARDWARE">Hardware (Proyector, PC, Teclado)</option>
+                                        <option value="SOFTWARE">Software (Licencias, Programas, SO)</option>
+                                        <option value="REDES">Redes e Internet (Wi-Fi, Cableado)</option>
+                                        <option value="SERVICIOS">Servicios Generales (Luz, Aire Acondicionado)</option>
+                                        <option value="INFRAESTRUCTURA">Infraestructura (Mobiliario, Puertas)</option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group">
+                                    <label for="incAula"><i class="fa-solid fa-door-open"></i> Aula / Ubicación</label>
+                                    <input type="text" id="incAula" placeholder="Ej. Aula 302 - Edificio B..." required>
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="incDescripcion"><i class="fa-solid fa-align-left"></i> Descripción Detallada</label>
+                                <textarea id="incDescripcion" rows="4" placeholder="Describe los síntomas del problema. Ej. La luz roja parpadea pero el lente no emite luz..." required></textarea>
+                            </div>
+
+                            <!-- LIVE DUPLICATE ALERTS PANEL -->
+                            <div class="duplicate-warning-container glass-panel fade-in" id="duplicateAlert" style="display: none;">
+                                <div class="dup-header">
+                                    <i class="fa-solid fa-triangle-exclamation pulse-icon"></i>
+                                    <h4>¡Posible Incidencia Duplicada Detectada!</h4>
+                                </div>
+                                <p>Hemos detectado reportes similares activos en la misma categoría:</p>
+                                <div class="duplicate-list" id="duplicateList">
+                                    <!-- Duplicated incident cards injected here -->
+                                </div>
+                                <div class="dup-footer">
+                                    <p class="dup-question">¿Tu problema es diferente y deseas continuar con el reporte?</p>
+                                    <div class="dup-actions">
+                                        <button type="button" class="btn-secondary btn-sm" id="cancelReportBtn">No, cancelar reporte</button>
+                                        <button type="button" class="btn-warning btn-sm" id="forceReportBtn">Sí, crear reporte nuevo</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="submitIncidenciaBtn">
+                                <span>Enviar Reporte a TI</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Teacher's list of reported incidents -->
+                    <div class="dashboard-card glass-panel fade-in">
+                        <div class="card-header-icon border-purple">
+                            <i class="fa-solid fa-list-check"></i>
+                            <h3>Mis Reportes Registrados</h3>
+                        </div>
+
+                        <div class="incidencia-list-container">
+                            <div class="incidencia-list" id="docenteIncidenciasList">
+                                <!-- Incidents list will be populated here -->
+                                <div class="list-empty">No has reportado incidencias aún.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: TI DASHBOARD -->
+            <section class="dashboard-section" id="tiDashboard" style="display: none;">
+                <div class="dashboard-layout-ti">
+                    <!-- Statistics summary bar for TI -->
+                    <div class="stats-row-ti">
+                        <div class="stat-card glass-panel border-blue">
+                            <div class="stat-icon-wrapper text-blue"><i class="fa-solid fa-hourglass-half"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="tiStatPendientes">0</span>
+                                <span class="stat-label">Pendientes</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-warning">
+                            <div class="stat-icon-wrapper text-warning"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="tiStatAtendiendo">0</span>
+                                <span class="stat-label">En Atención</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-green">
+                            <div class="stat-icon-wrapper text-green"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="tiStatFinalizados">0</span>
+                                <span class="stat-label">Finalizados</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-red">
+                            <div class="stat-icon-wrapper text-red"><i class="fa-solid fa-circle-xmark"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="tiStatRechazados">0</span>
+                                <span class="stat-label">Rechazados</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main IT Panel with Incidents Queue -->
+                    <div class="dashboard-card glass-panel fade-in col-span-full">
+                        <div class="card-header-icon border-blue">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <h3>Bandeja de Entrada de Soporte Técnico (TI)</h3>
+                        </div>
+
+                        <!-- Filters for TI -->
+                        <div class="table-filters-container">
+                            <div class="filters-left">
+                                <button class="btn-filter active" data-filter="TODAS">Todas</button>
+                                <button class="btn-filter" data-filter="PENDIENTE">Nuevas (Pendientes)</button>
+                                <button class="btn-filter" data-filter="ATENDIENDO">En Proceso</button>
+                                <button class="btn-filter" data-filter="FINALIZADO">Atendidas</button>
+                                <button class="btn-filter" data-filter="RECHAZADO">Rechazadas</button>
+                            </div>
+                        </div>
+
+                        <div class="incidencia-list-container">
+                            <div class="incidencia-list list-grid-layout" id="tiIncidenciasList">
+                                <!-- Incidents loaded here -->
+                                <div class="list-empty">No hay incidencias en la bandeja en este momento.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: ADMINISTRADOR DASHBOARD -->
+            <section class="dashboard-section" id="adminDashboard" style="display: none;">
+                <div class="admin-dashboard-layout">
+                    <!-- Stat boxes -->
+                    <div class="admin-stats-grid">
+                        <div class="stat-card glass-panel border-purple">
+                            <div class="stat-icon-wrapper text-purple"><i class="fa-solid fa-chart-line"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="adminStatTotal">0</span>
+                                <span class="stat-label">Total Reportadas</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-blue">
+                            <div class="stat-icon-wrapper text-blue"><i class="fa-solid fa-bell"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="adminStatPendientes">0</span>
+                                <span class="stat-label">Pendientes</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-warning">
+                            <div class="stat-icon-wrapper text-warning"><i class="fa-solid fa-spinner"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="adminStatAtendiendo">0</span>
+                                <span class="stat-label">En Atención</span>
+                            </div>
+                        </div>
+                        <div class="stat-card glass-panel border-green">
+                            <div class="stat-icon-wrapper text-green"><i class="fa-solid fa-thumbs-up"></i></div>
+                            <div class="stat-data">
+                                <span class="stat-number" id="adminStatFinalizados">0</span>
+                                <span class="stat-label">Finalizadas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin controls and global incident overview -->
+                    <div class="dashboard-card glass-panel fade-in">
+                        <div class="card-header-icon border-purple">
+                            <i class="fa-solid fa-server"></i>
+                            <h3>Panel de Supervisión Global y Auditoría</h3>
+                        </div>
+
+                        <div class="table-filters-container">
+                            <div class="filters-left">
+                                <button class="btn-filter active" data-filter="TODAS" id="adminFilterAll">Todas</button>
+                                <button class="btn-filter" data-filter="HARDWARE">Hardware</button>
+                                <button class="btn-filter" data-filter="SOFTWARE">Software</button>
+                                <button class="btn-filter" data-filter="REDES">Redes</button>
+                                <button class="btn-filter" data-filter="SERVICIOS">Servicios</button>
+                            </div>
+                        </div>
+
+                        <div class="admin-table-container">
+                            <table class="admin-incidents-table" id="adminTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Incidencia / Aula</th>
+                                        <th>Docente</th>
+                                        <th>Categoría</th>
+                                        <th>Estado</th>
+                                        <th>Técnico TI</th>
+                                        <th>Fecha Creación</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminTableBody">
+                                    <tr>
+                                        <td colspan="8" class="text-center">No hay incidencias disponibles en el sistema.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MODAL OVERLAY FOR TI RESOLUTION OR REJECTION -->
+    <div class="modal-overlay" id="actionModal" style="display: none;">
+        <div class="modal-card glass-panel scale-in">
+            <div class="modal-header">
+                <h3 id="modalTitle">Resolver Incidencia</h3>
+                <button class="modal-close" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="modalForm" class="standard-form">
+                <input type="hidden" id="modalIncidenciaId">
+                <input type="hidden" id="modalActionType"> <!-- RESOLVE or REJECT -->
+                
+                <div class="modal-incident-summary" id="modalIncidentSummary">
+                    <!-- Short recap of the incident -->
+                </div>
+
+                <div class="input-group">
+                    <label for="modalJustificacion" id="justificacionLabel"><i class="fa-solid fa-clipboard-check"></i> Detalles de la Solución (Justificación)</label>
+                    <textarea id="modalJustificacion" rows="4" placeholder="Escribe el detalle de los trabajos realizados o el motivo detallado del rechazo..." required></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="modalCancelBtn">Cancelar</button>
+                    <button type="submit" class="btn-primary" id="modalSubmitBtn">
+                        <span id="modalBtnText">Finalizar Tarea</span>
+                        <i class="fa-solid fa-circle-check"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION AUDIO -->
+    <audio id="notifSound" preload="auto">
+        <!-- Modern pleasant notification ping -->
+        <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-84.wav" type="audio/wav">
+    </audio>
+
+    <!-- TOAST POPUPS CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Core App JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
