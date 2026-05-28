@@ -1,0 +1,354 @@
+/* ==================== ESTILOS GENERALES ==================== */
+
+:root {
+    --primary: #667eea;
+    --secondary: #764ba2;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #0ea5e9;
+}
+
+* {
+    transition: all 0.3s ease;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* ==================== NAVBAR ==================== */
+
+.navbar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+.navbar-brand {
+    font-size: 1.5em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* ==================== CARDS ==================== */
+
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px 10px 0 0 !important;
+    color: white;
+    padding: 1rem 1.5rem;
+}
+
+.card-header h5 {
+    color: white;
+    margin: 0;
+}
+
+/* ==================== BOTONES ==================== */
+
+.btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-success {
+    background-color: #10b981;
+}
+
+.btn-success:hover {
+    background-color: #059669;
+}
+
+.btn-warning {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #d97706;
+}
+
+.btn-danger {
+    background-color: #ef4444;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+.btn-info {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #0284c7;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.875rem;
+}
+
+/* ==================== FORMULARIOS ==================== */
+
+.form-control,
+.form-select,
+.form-control:focus,
+.form-select:focus {
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+}
+
+/* ==================== TABLAS ==================== */
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead {
+    background: #2d3748 !important;
+}
+
+.table thead th {
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 1rem;
+}
+
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ==================== BADGES ==================== */
+
+.badge {
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+
+.badge.bg-danger {
+    background-color: #ef4444 !important;
+}
+
+.badge.bg-success {
+    background-color: #10b981 !important;
+}
+
+.badge.bg-warning {
+    background-color: #f59e0b !important;
+    color: white !important;
+}
+
+.badge.bg-info {
+    background-color: #0ea5e9 !important;
+}
+
+/* ==================== ALERTAS ==================== */
+
+.alert {
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.alert-success {
+    background-color: #ecfdf5;
+    color: #065f46;
+    border-left: 4px solid #10b981;
+}
+
+.alert-danger {
+    background-color: #fef2f2;
+    color: #7f1d1d;
+    border-left: 4px solid #ef4444;
+}
+
+.alert-warning {
+    background-color: #fffbeb;
+    color: #78350f;
+    border-left: 4px solid #f59e0b;
+}
+
+.alert-info {
+    background-color: #f0f9ff;
+    color: #0c2d6b;
+    border-left: 4px solid #0ea5e9;
+}
+
+/* ==================== MODALES ==================== */
+
+.modal-content {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header .modal-title {
+    color: white;
+    font-weight: 600;
+}
+
+.btn-close-white {
+    filter: brightness(0) invert(1);
+}
+
+/* ==================== SIDEBAR/LIST-GROUP ==================== */
+
+.list-group-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px !important;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #f3f4f6;
+    border-color: #667eea;
+}
+
+.list-group-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: transparent;
+    color: white;
+}
+
+/* ==================== UTILITIES ==================== */
+
+.text-muted {
+    color: #9ca3af !important;
+}
+
+.bg-dark {
+    background-color: #1f2937 !important;
+}
+
+.border-start {
+    padding-left: 1rem;
+}
+
+/* ==================== RESPONSIVIDAD ==================== */
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    .btn-group-sm {
+        gap: 0.25rem;
+    }
+}
+
+/* ==================== ANIMACIONES ==================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
